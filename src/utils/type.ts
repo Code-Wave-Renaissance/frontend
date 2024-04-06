@@ -17,3 +17,23 @@ export type pplFundingType = {
     name: string;
     quantityInvested: number;
 };
+
+export type TaskDataType = {
+    id: string;
+    fid: number;
+    displayName: string;
+    pfpUrl: string;
+    title: string;
+    description: string;
+    price: number;
+    verifiedAddresses: object;
+    applicants: { [key: string]: TaskApplicantType };
+};
+
+export type TaskApplicantType = {
+    id: string;
+    fid: number;
+    displayName: string;
+    pfpUrl: string;
+    address: string;
+};
