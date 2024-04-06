@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import {TaskDetailsView} from "../views";
+import TaskDetailsView from "../views/task-details";
 
 const TaskDetails: NextPage = (props) => {
     return (
@@ -9,7 +9,7 @@ const TaskDetails: NextPage = (props) => {
                 <title>TaskFlow</title>
                 <meta
                     name="description"
-                    content="Create Task"
+                    content="Task Details"
                 />
             </Head>
             <TaskDetailsView />

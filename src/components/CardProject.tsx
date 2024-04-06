@@ -17,7 +17,7 @@ export function CardProject({ id, fid, displayName, title, description, price, a
                 </div>
                 :
                 // <div className='flex items-start'>
-                    <Link className='flex items-start' href={`/projects/${id}`}>
+                    <Link className='flex items-start' href={`/explore-tasks/${id}`}>
                         <div className="aspect-square w-[40%] h-full rounded-xl overflow-hidden">
                             <img src={pfpUrl} alt="Project Image" className="object-cover w-full h-full" />
                         </div>
