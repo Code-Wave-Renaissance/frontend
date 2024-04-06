@@ -17,7 +17,7 @@ export const AppBar: React.FC = () => {
 	return (
 		<div>
 			{/* NavBar / Header */}
-			<div className="navbar flex h-20 flex-row md:mb-2 shadow-lg bg-black text-neutral-content border-b border-zinc-600 bg-opacity-66">
+			<div className="navbar flex h-20 flex-row md:mb-2 bg-transparent text-neutral-content">
 				<div className="navbar-start align-items-center">
 					<div className="hidden sm:inline w-22 h-22 md:p-2 ml-10">
 						{/* <Link href="https://solana.com" target="_blank" rel="noopener noreferrer" passHref className="text-secondary hover:text-white">
@@ -48,7 +48,7 @@ export const AppBar: React.FC = () => {
 						</Link> */}
 
 						{/* SVG WAVE LOGO */}
-						<Link href="/" passHref>
+						{/* <Link href="/" passHref>
 							<svg width="100" height="50" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M0 25C13.3333 34.6667 26.6667 39.3333 40 39.3333C53.3333 39.3333 66.6667 34.6667 80 25C86.6667 19.6667 93.3333 16.3333 100 15V50H0V25Z" fill="url(#paint0_linear)" />
 								<defs>
@@ -58,8 +58,7 @@ export const AppBar: React.FC = () => {
 									</linearGradient>
 								</defs>
 							</svg>
-
-						</Link>
+						</Link> */}
 
 					</div>
 					<WalletMultiButtonDynamic className="btn-ghost btn-sm relative flex md:hidden text-lg " />
@@ -96,14 +95,14 @@ export const AppBar: React.FC = () => {
 						className="btn-gh items-center justify-between md:hidden mr-6"
 						onClick={() => setIsNavOpen(!isNavOpen)}>
 						<div className="HAMBURGER-ICON space-y-2.5 ml-5">
-							<div className={`h-0.5 w-8 bg-purple-600 ${isNavOpen ? 'hidden' : ''}`} />
-							<div className={`h-0.5 w-8 bg-purple-600 ${isNavOpen ? 'hidden' : ''}`} />
-							<div className={`h-0.5 w-8 bg-purple-600 ${isNavOpen ? 'hidden' : ''}`} />
+							<div className={`h-0.5 w-8 bg-blue-600 ${isNavOpen ? 'hidden' : ''}`} />
+							<div className={`h-0.5 w-8 bg-blue-600 ${isNavOpen ? 'hidden' : ''}`} />
+							<div className={`h-0.5 w-8 bg-blue-600 ${isNavOpen ? 'hidden' : ''}`} />
 						</div>
-						<div className={`absolute block h-0.5 w-8 animate-pulse bg-purple-600 ${isNavOpen ? "" : "hidden"}`}
+						<div className={`absolute block h-0.5 w-8 animate-pulse bg-blue-600 ${isNavOpen ? "" : "hidden"}`}
 							style={{ transform: "rotate(45deg)" }}>
 						</div>
-						<div className={`absolute block h-0.5 w-8 animate-pulse bg-purple-600 ${isNavOpen ? "" : "hidden"}`}
+						<div className={`absolute block h-0.5 w-8 animate-pulse bg-blue-600 ${isNavOpen ? "" : "hidden"}`}
 							style={{ transform: "rotate(135deg)" }}>
 						</div>
 					</label>

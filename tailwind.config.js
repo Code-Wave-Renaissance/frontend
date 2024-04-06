@@ -16,15 +16,15 @@ module.exports = {
       {
         'solana': { 
           fontFamily: {
-            display: ['PT Mono, monospace'],
-            body: ['Inter, sans-serif'],
+            display: ['PT Mono, monospace, poppins, roboto'],
+            body: ['Inter, sans-serif, roboto, poppins'],
           },
-          'primary': '#000000',           /* Primary color */
-          'primary-focus': '#9945FF',     /* Primary color - focused */
+          'primary': '#1d4ed8',           /* Primary color */
+          'primary-focus': '#1e3a8a',     /* Primary color - focused */
           'primary-content': '#ffffff',   /* Foreground content color to use on primary color */
 
-          'secondary': '#808080',         /* Secondary color */
-          'secondary-focus': '#f3cc30',   /* Secondary color - focused */
+          'secondary': '#38bdf8',         /* Secondary color */
+          'secondary-focus': '#0e7490',   /* Secondary color - focused */
           'secondary-content': '#ffffff', /* Foreground content color to use on secondary color */
 
           'accent': '#33a382',            /* Accent color */
@@ -33,11 +33,11 @@ module.exports = {
 
           'neutral': '#2b2b2b',           /* Neutral color */
           'neutral-focus': '#2a2e37',     /* Neutral color - focused */
-          'neutral-content': '#ffffff',   /* Foreground content color to use on neutral color */
+          'neutral-content': '#000000',   /* Foreground content color to use on neutral color */
 
-          'base-100': '#000000',          /* Base color of page, used for blank backgrounds */
-          'base-200': '#35363a',          /* Base color, a little darker */
-          'base-300': '#222222',          /* Base color, even more darker */
+          'base-100': '#e0f2fe',          /* Base color of page, used for blank backgrounds */
+          'base-200': '#bae6fd',          /* Base color, a little darker */
+          'base-300': '#7dd3fc',          /* Base color, even more darker */
           'base-content': '#f9fafb',      /* Foreground content color to use on base color */
 
           'info': '#2094f3',              /* Info */

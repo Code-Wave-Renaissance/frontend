@@ -12,6 +12,46 @@ import pkg from '../../../package.json';
 // Store
 import useUserSOLBalanceStore from '../../stores/useUserSOLBalanceStore';
 
+import Wave from 'react-wavify';
+
+// Mouse Position
+const useMousePosition = () => {
+	const [
+		mousePosition,
+		setMousePosition
+	] = useState({ x: 0, y: 0 });
+
+	useEffect(() => {
+		const updateMousePosition = ev => {
+			setMousePosition({ x: ev.clientX, y: ev.clientY });
+		};
+
+		window.addEventListener('mousemove', updateMousePosition);
+		return () => {
+			window.removeEventListener('mousemove', updateMousePosition);
+		};
+	}, []);
+
+	return mousePosition;
+};
+
+// Function to map Y coordinate to a value between 40 and 80
+function mapYCoordinateToValue(yCoordinate, screenHeight) {
+	// Calculate the range of Y values from 0 to screenHeight
+	const yRange = screenHeight;
+
+	// Calculate the value range from 40 to 80
+	const valueRange = 80 - 40;
+
+	// Map the Y coordinate to the value range
+	// When yCoordinate is 0, the value should be 40
+	// When yCoordinate is screenHeight, the value should be 80
+	const mappedValue = 40 + (yCoordinate / yRange) * valueRange;
+
+	// Ensure the value is within the desired range (40 to 80)
+	return Math.max(40, Math.min(80, mappedValue));
+}
+
 export const HomeView: FC = ({ }) => {
 	const wallet = useWallet();
 	const { connection } = useConnection();
@@ -19,27 +59,37 @@ export const HomeView: FC = ({ }) => {
 	const balance = useUserSOLBalanceStore((s) => s.balance)
 	const { getUserSOLBalance } = useUserSOLBalanceStore()
 
-	useEffect(() => {
-		if (wallet.publicKey) {
-			console.log(wallet.publicKey.toBase58())
-			getUserSOLBalance(wallet.publicKey, connection)
-		}
-	}, [wallet.publicKey, connection, getUserSOLBalance])
+	const { y } = useMousePosition();
+
+	// Calculate waveHeight based on the y coordinate
+	const screenHeight = window.innerHeight;
+	const waveHeight = mapYCoordinateToValue(y, screenHeight);
+
 
 	return (
-
-		<div className="md:hero mx-auto p-4">
+		<div className="md:hero">
 			<div className="md:hero-content flex flex-col">
-				<div className='mt-6'>
-					<div className='text-sm font-normal align-bottom text-right text-slate-600 mt-4'>v{pkg.version}</div>
-					<h1 className="text-center text-7xl md:pl-12 font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-blue-700 mb-4">
-						~Task~Flow~
+				<div className='mt-[12vh]'>
+					{/* <div className='text-sm font-normal align-bottom text-right text-slate-600'>v{pkg.version}</div> */}
+					<h1 className="h-[30vh] w-screen text-[50pt] sm:text-[80pt] md:text-[120pt] lg:text-[150pt] xl:text-[180pt] 2xl:text-[200pt] font-extrabold leading-[200pt] tracking-tight">
+						<Wave fill="#1d4ed8" mask="url(#mask)" options={{ points: 3, speed: 0.1, amplitude: 80, height: waveHeight }} style={{ height: 'inherit' }}>
+							<text x="100" y="200" fill="white">TASKFLOW</text>
+							<mask id="mask">
+								<text x="100" y="200" fill="white">TASKFLOW</text>
+							</mask>
+						</Wave>
 					</h1>
+
+					{/* <h1 className="text-center text-[50pt] sm:text-[80pt] md:text-[120pt] lg:text-[150pt] xl:text-[180pt] 2xl:text-[200pt] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-blue-700 leading-[200pt] tracking-tight">
+						TASKFLOW
+					</h1> */}
+
 				</div>
-				<h4 className="md:w-full text-2x1 md:text-4xl text-center text-slate-300 my-2">
-					<p>Find, Create and Share Tasks like never seen before</p>
-					<p className='text-slate-500 text-2x1 leading-relaxed'>What task will you complete now?</p>
+				<h4 className="md:w-full text-4x1 md:text-8xl text-center font-bold text-primary-focus p-0">
+					FREELANCING MADE EASY
 				</h4>
+				<p className='text-secondary text-3x1 md:text-4xl leading-relaxed p-0'>Find, Create and Share Jobs like never seen before</p>
+
 				<div className="flex flex-col mt-2">
 					{/* <RequestAirdrop />
 					<h4 className="md:w-full text-2xl text-slate-300 my-2">
