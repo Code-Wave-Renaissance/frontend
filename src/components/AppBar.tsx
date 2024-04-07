@@ -73,11 +73,11 @@ export const AppBar: React.FC = () => {
 							href="/"
 							navigationStarts={() => setIsNavOpen(false)}
 						/>
-						<NavElement
+						{/* <NavElement
 							label="Basics"
 							href="/basics"
 							navigationStarts={() => setIsNavOpen(false)}
-						/>
+						/> */}
 						<NavElement
 							label="Explore Tasks"
 							href="/explore-tasks"

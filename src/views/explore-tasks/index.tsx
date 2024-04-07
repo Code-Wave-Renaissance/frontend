@@ -2,12 +2,10 @@
 
 import { FC, useState, useEffect } from "react";
 import { CardProject } from "../../components/CardProject";
-import { useRouter } from 'next/router';
 
 export const ExploreTasksView: FC = () => {
     const [projectsData, setProjectsData] = useState([]); // State to hold the fetched data
     const [loading, setLoading] = useState(true); // State to hold the loading status
-    const router = useRouter();
 
     useEffect(() => {
         // Fetch data from API when component mounts

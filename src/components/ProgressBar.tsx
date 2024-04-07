@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-const ProgressBar = ({ quantityToFund, quantityRaised }: { quantityToFund: number, quantityRaised: number }) => {
+const ProgressBar = ({milestone}) => {
     // Calculate the percentage of progress
-    const [progress, setProgress] = useState((quantityRaised / quantityToFund * 100));
+    const [progress, setProgress] = useState(milestone);
 
     // useEffect(() => {
     //     const timer = setTimeout(() => setProgress((quantityRaised / quantityToFund * 100)), 500)
@@ -13,10 +13,10 @@ const ProgressBar = ({ quantityToFund, quantityRaised }: { quantityToFund: numbe
 
     return (
         <div className='w-full flex items-center justify-between'>
-            <div className="w-[100%] h-4 bg-gray-200 rounded-full overflow-hidden border-yellow-500 border-2">
+            <div className="w-[100%] h-4 bg-gray-200 rounded-full overflow-hidden border-primary border-2">
                 <div
-                    className="h-full bg-yellow-500"
-                    style={{ width: `${progress}%` }}
+                    className="h-full bg-primary"
+                    style={{ width: `${milestone*100/3}%` }}
                 ></div>
                 {/* <div className="absolute inset-0 flex items-center justify-center text-white text-sm font-bold">
                 {quantityRaised}/{quantityToFund}

@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Spinner } from 'flowbite-react';
 import { Avatar } from "flowbite-react";
 import { Rating } from 'flowbite-react';
+import { Badge } from 'flowbite-react';
 
 import { FaInstagram, FaGlobe, FaTwitter, FaFacebookMessenger } from 'react-icons/fa';
 
@@ -36,20 +37,28 @@ export function CardProject({ id, fid, displayName, title, description, price, a
                                 </div>
                                 <h2 className='text-4xl font-bold text-primary-focus align-middle self-center'>${price}</h2>
                             </div>
-                            {/* <h2 className="text-md text-gray-500">{description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, culpa a? Obcaecati adipisci debitis eligendi quaerat vel, expedita ipsum vitae voluptas harum fugit ad itaque deserunt sint. Quidem, dicta fuga!</h2> */}
 
                             {/* HARDCODED TAG SECTION (IMPLEMENT FILTERING LATER) */}
-                            <div className='text-lg pt-1 text-gray-600'>
+                            <div className='text-lg flex align-middle items-center text-gray-600'>
                                 Tags:
-                                <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Art</span>
+                                {/* <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Art</span>
                                 <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Easy</span>
                                 <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Fast</span>
-                                <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Code</span>
+                                <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Code</span> */}
+                                <div className='flex ml-1 flex-wrap gap-1'>
+                                    <Badge color="gray" >Art</Badge>
+                                    <Badge color="gray" >Easy</Badge>
+                                    <Badge color="gray" >Fast</Badge>
+                                    <Badge color="gray" >Code</Badge>
+                                </div>
                             </div>
+
+                            {/* <h2 className="text-md text-gray-500">{description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, culpa a? Obcaecati adipisci debitis eligendi quaerat vel, expedita ipsum vitae voluptas harum fugit ad itaque deserunt sint. Quidem, dicta fuga!</h2> */}
+
                         </div>
                     </div>
 
-                    <div className='w-[300pt] border-t-2 border-gray-400 self-center'></div>
+                    <div className='w-[300pt] border-t-[1px] border-gray-400 self-center'></div>
 
                     <div className='w-full p-3 flex flex-initial justify-between'>
                         <Avatar img={pfpUrl} rounded size="lg" placeholderInitials={displayName.charAt(0) || ""} >
@@ -80,8 +89,6 @@ export function CardProject({ id, fid, displayName, title, description, price, a
                                 <FaGlobe size={30} color='black' />
                             </a>
                         </div>
-
-
                     </div>
 
                     {/* BUTTON V1 */}

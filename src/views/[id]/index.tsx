@@ -3,12 +3,16 @@
 import { MdShare, MdFavorite, MdStar, MdCurrencyBitcoin, MdArrowRight } from "react-icons/md";
 import { useEffect, useState, FC } from "react";
 import Link from "next/link";
-import { CreatorFundingType } from "../../utils/type";
-import { creatorFundingData } from "../../utils/mock";
+import { TaskDataType } from "../../utils/type";
 
 import ProgressBar from "../../components/ProgressBar";
 import WithdrawBtn from "../../components/WithdrawBtn";
 import ApplicantsList from "../../components/ApplicantsList";
+
+import { Badge } from "flowbite-react";
+import { Avatar } from "flowbite-react";
+import { Rating } from 'flowbite-react';
+import { FaFacebookMessenger, FaGlobe } from "react-icons/fa";
 
 import { useRouter } from "next/router";
 
@@ -19,128 +23,155 @@ export const TaskDetailsView: FC = ({ params }: any) => {
     console.log(id);
 
     // const id = params.id
-    const [project, setProject] = useState<CreatorFundingType | null>(null)
-    const [loading, setLoading] = useState<boolean>(false);
+    const [task, setTaskData] = useState<TaskDataType | null>(null)
+    const [loading, setLoading] = useState<boolean>(true);
 
-    /* const {address: connectedAddress} = useAccount(); */
-    const [depositAccount, setDepositAccount] = useState<string>('');
-    const [badgesCollection, setBadgesCollection] = useState<string>('');
-    const [projectName, setProjectName] = useState<string>('');
-    const [pricePerToken, setPricePerToken] = useState<number>(0);
+    const [shortAddress, setShortAddress] = useState<string>("")
 
-    // async function fetchFundingData() {
-    //     try {
-    //         const project = creatorFundingData.find((project) => project.id === parseInt(id))
-    //         setProject(project || null)
+    useEffect(() => {
+        // Fetch data from API when component mounts
+        const fetchData = async (id) => {
+            try {
+                const response = await fetch(`${process.env.BACKEND_API || "https://backend-blue-two.vercel.app/api/task/"}${id}`);
+                console.log(response);
+                if (response.ok) {
+                    const data = await response.json();
+                    setTaskData(data); // Set the fetched data into state
+                    setLoading(false); // Set loading to false when data is fetched
+                    setShortAddress(data.verifiedAddresses[0].slice(0, 6) + "..." + data.verifiedAddresses[0].slice(-5) || "")
+                    console.log(data);
+                    console.log(task);
+                } else {
+                    console.error('Failed to fetch data');
+                    // throw new Error('Failed to fetch data');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
+        fetchData(id as any); // Call the fetchData function
+    }, []); // Empty dependency array ensures this effect runs only once after the initial render
 
-    //     } catch (error) {
-    //         console.error("There was an error fetching the data:", error);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     fetchFundingData();
-    // }, [id]);
 
     return (
-        <div className='h-auto  bg-black'>
-            {(!project && !loading) ?
-                <div className="p-6 w-full md:p-12 md:px-30 lg:py-12 lg:px-48 text-primary-text">
-                    <div>
+        <div className='flex text-primary bg-gradient-to-br from-base-200 to-base-300 shadow-lg rounded-xl overflow-hidden w-[70vw]'>
+            {(!loading) ?
+                <div className="p-6 w-full md:p-12 lg:py-12 lg:px-18 text-primary-text">
+                    <div className="justify-between flex">
                         <Link href="/explore-tasks">
-                            &#8592; Back to Projects
-                            {id}
+                            &#8592; Continue Exploring
                         </Link>
-                        <button
-                            className="inline-flex items-center text-sm h-8 py-2 px-4 bg-transparent text-primary-text rounded-lg shadow focus:outline-none hover:bg-gray-100"
-                        >
-                            {<MdShare />}
-                            <p style={{ paddingLeft: '3px' }} >Share</p>
-                        </button>
-                        <button
-                            className="inline-flex items-center text-sm h-8 py-2 px-4 bg-transparent text-primary-text rounded-lg shadow focus:outline-none hover:bg-gray-100"
-                        >
-                            {<MdFavorite/>}
-                            <p style={{ paddingLeft: '3px' }} >Save</p>
-                        </button>
+                        <div>
+                            <button
+                                className="inline-flex mr-2 items-center text-sm h-8 py-2 px-4 bg-secondary text-primary-text rounded-lg shadow focus:outline-none hover:bg-blue-500"
+                            >
+                                {<MdShare />}
+                                <p style={{ paddingLeft: '3px' }} >Share</p>
+                            </button>
+                            <button
+                                className="inline-flex items-center text-sm h-8 py-2 px-4 bg-secondary text-primary-text rounded-lg shadow focus:outline-none hover:bg-blue-500"
+                            >
+                                {<MdFavorite />}
+                                <p style={{ paddingLeft: '3px' }} >Save</p>
+                            </button>
+                        </div>
                     </div>
 
                     {/* Region with Description and Reserve Section */}
 
-                    <div className="flex flex-col justify-between pt-6 md:flex-row md:space-x-6">
+                    <div className="flex flex-col justify-between pt-2 md:flex-row md:space-x-6">
                         <div className="w-[80%]">
-                            {/* <FundraiserSection id={propertyId} price={project.price} raised={project.raised} totalTokens={project.totalTokens} status={project.status} holders={project.holders} loading={loading} /> */}
-                            <div className="w-full flex flex-row items-end justify-between">
-                                <div className="flex flex-row items-end">
-                                    {/* <p className="text-5xl font-semibold">${Number(totalSupply)}</p> */}
-                                    {/* <p className="text-xl ml-4">{numHolders} Holder{numHolders !== 1 ? 's' : ''}</p> */}
+
+                            {/* MAKE THIS A COMPONENT  */}
+                            <div className='flex justify-between w-full'>
+                                <div>
+                                    <div className='flex align-middle'>
+                                        <h1 className='flex text-5xl font-bold text-primary mr-3'>{task.title}</h1>
+                                        {task.status === "open" ? <p className='text-gray-100 self-center py-1 px-3 rounded-full bg-green-500'>Open</p> : <p className='text-gray-100 self-center py-1 px-3 rounded-full bg-error'>Closed</p>}
+                                    </div>
+                                    <p className='text-gray-500 font-semibold'>Due to: {"01/04/2027"}</p>
                                 </div>
-                                {/* <p className="text-2xl font-semibold">{(Number(totalSupply) / (Number(targetSupply) + 0.00001) * 100).toFixed(2)}% of ${Number(targetSupply)} goal</p> */}
+                                <h2 className='text-5xl font-bold text-primary-focus align-middle self-center'>${task.price}</h2>
                             </div>
-                            <div className="w-full mb-4" style={{ position: 'relative' }}>
-                                <ProgressBar quantityToFund={Number()} quantityRaised={Number()} />
-                                <div></div>
+
+                            {/* MAKE THIS A COMPONENT TOO */}
+                            <div className='text-lg py-2 flex align-middle items-center text-gray-600'>
+                                Tags:
+                                <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Art</span>
+                                <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Easy</span>
+                                <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Fast</span>
+                                <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Code</span>
+                                {/* <div className='flex ml-1 flex-wrap gap-1'>
+                                    <Badge color="gray" >Art</Badge>
+                                    <Badge color="gray" >Easy</Badge>
+                                    <Badge color="gray" >Fast</Badge>
+                                    <Badge color="gray" >Code</Badge>
+                                </div> */}
+                            </div>
+
+                            <div className="py-2">
+                                <h2 className="text-2xl font-semibold">Description</h2>
+                                <h2 className="text-md text-gray-500">{task.description} </h2>
+                            </div>
+
+                            <h2 className="text-2xl mt-2 font-semibold">Meet your recruiter</h2>
+                            <div className='w-full p-3 flex flex-initial justify-between'>
+                                <Avatar img={task.pfpUrl} rounded size="lg" placeholderInitials={task.displayName.charAt(0) || ""} >
+                                    <div className="space-y-1 font-medium">
+                                        <div className='flex align-middle justify-between'>
+                                            <h1 className='text-3xl text-primary mr-1'>{task.displayName}</h1>
+                                            <Rating size="md">
+                                                <Rating.Star />
+
+                                                <p className="ml-2 text-sm font-bold text-gray-900">4.95</p>
+
+                                            </Rating>
+                                        </div>
+                                        <h2 className="text-md text-gray-500">{shortAddress}</h2>
+                                    </div>
+                                </Avatar>
+                                {/* IMPLEMENT ICONS TO SOCIAL MEDIA HERE */}
+                                <div className='flex flex-row space-x-2 items-center pr-2'>
+                                    <h2>
+                                        Contacts:
+                                    </h2>
+                                    <a className='rounded-full aspect-square h-[50%] bg-secondary p-1 hover:bg-primary' href="" target="_blank" rel="noreferrer">
+                                        <FaFacebookMessenger size={30} color='black' />
+                                    </a>
+                                    <a className='rounded-full aspect-square h-[50%] bg-secondary p-1 hover:bg-primary' href="https://www.artisticendeavor.com" target="_blank" rel="noreferrer">
+                                        <FaGlobe size={30} color='black' />
+                                    </a>
+                                </div>
+                            </div>
+
+
+
+                            <div className="w-full mt-4" style={{ position: 'relative' }}>
+                                <ProgressBar milestone={2} />
                                 <div className="marker" style={{ left: '33%' }}></div>
                                 <button className="milestone-button" style={{ left: '33%', transform: 'translateX(-50%)' }}>Milestone 1</button>
                                 <div className="marker" style={{ left: '66%' }}></div>
                                 <button className="milestone-button" style={{ left: '66%', transform: 'translateX(-50%)' }}>Milestone 2</button>
+                                {/* <div className="marker" style={{ left: '99%' }}></div> */}
+                                <button className="milestone-button" style={{ left: '100%', transform: 'translateX(-50%)' }}>Completed</button>
                             </div>
-
-                            <div className="">
-                                <h2 className="text-xl font-semibold">Description</h2>
-                                {/*                                 <p className="mt-4">Deposit Account <Address address={depositAccount}/></p>
-                                <p className="mt-4">Badge Collection <Address address={badgesCollection}/></p> */}
-                                {/* <p className="mt-4">{project.projectDescription}</p> */}
-                            </div>
-
-                            <div className="">
-                                <h2 className="text-xl font-semibold">Motivation</h2>
-                                {/* <p className="mt-4">{project.motivation}</p> */}
-                            </div>
-                            <div className="">
-                                <h2 className="text-xl font-semibold">Project Links</h2>
-
-                                <div className="mt-4 flex flex-col">
-                                    {/* {project.projectLinks.map((link, index) => (
-                                        <a key={index} href={link} className="text-primary-600 mb-2 hover:underline">{link}</a>
-                                    ))} */}
-                                </div>
-                            </div>
-                            <div className="flex flex-row justify-center items-center">
-                                <button className="center right-1/2 center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Apply
-                                </button>
-                            </div>
-                            {/*<div className="flex items-center justify-center flex-col py-4 my-2">
-                                <h2 className="font-semibold text-3xl py-2">Withdraw</h2>
-                                <div className="flex items-center justify-center">
-                                    <WithdrawBtn milestoneNum={1} />
-                                    <MdArrowRight className="mx-1" /> 
-                                    <WithdrawBtn milestoneNum={2} />
-                                    <MdArrowRight className="mx-1" /> 
-                                    <WithdrawBtn milestoneNum={3} />
-                                </div>
-                            </div>*/}
                         </div>
+
                         {/* separation bar */}
-                        <div className="hidden md:block w-[1px] bg-gray-300 h-[80%]"></div>
-                        <div className="w-[20%]">
-                            <div className="mt-6">
-                                <p className="text-xl font-semibold flex items-center whitespace-nowrap">
-                                    ✔ Task Contributors:
-                                </p>
-                                {/*Colocar lista de contribuidores com quantidade que cada um pegou}
-                                <ContributorList contributors={project.pplFunding as any} />*/}
-                            </div>
-                            <div className="mt-6">
-                                <p className="text-xl font-semibold flex items-center whitespace-nowrap">
-                                    ⏳ Task Applicants:
-                                </p>
-                                {/*Colocar lista de aplicantes 
-                                <ApplicantsList applicants={project.pplFunding as any} />*/}
+                        {/* <div className="hidden md:block w-[1px] bg-gray-300 h-[80%]"></div> */}
+
+                        {/* Region with Task Applicants */}
+                        <div className="w-[20%] flex flex-col items-start mt-6 ml-0 h-full">
+                            <p className="text-2xl font-semibold flex items-center whitespace-nowrap">
+                                ⏳Applicants
+                            </p>
+
+                            {/* <ApplicantsList applicants={task.applicants as any} /> */}
+                            <div className="flex flex-row justify-center items-center self-end">
+                                <button className="bg-primary hover:bg-primary-focus text-white font-bold py-2 px-4 rounded">
+                                    Apply
+                                </button>
                             </div>
                         </div>
                     </div>

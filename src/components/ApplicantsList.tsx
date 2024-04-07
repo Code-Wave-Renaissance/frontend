@@ -1,8 +1,8 @@
 import React from 'react';
-import { pplFundingType } from '../utils/type';
+import { TaskApplicantType } from '../utils/type';
 
 interface ApplicantsListProps {
-    applicants: pplFundingType[];
+    applicants: TaskApplicantType[];
 }
 
 const ApplicantsList: React.FC<ApplicantsListProps> = ({ applicants }) => {
@@ -11,8 +11,10 @@ const ApplicantsList: React.FC<ApplicantsListProps> = ({ applicants }) => {
             {applicants.map((applicant, index) => (
                 <div key={index} className="py-4 px-6 flex items-center justify-between mb-4">
                     <div>
-                        <p className="text-lg font-semibold">{applicant.name}</p>
-                        <p className="text-sm text-gray-500">Funded: {applicant.quantityInvested}</p>
+                        <p className="text-lg font-semibold">{applicant.fid}</p>
+                        <p className="text-lg font-semibold">{applicant.displayName}</p>
+                        <p className="text-sm text-gray-500">{applicant.pfpUrl}</p>
+                        <p className="text-sm text-gray-500">{applicant.address}</p>
                     </div>
                     {/* You can add additional elements/icons here if needed */}
                 </div>
