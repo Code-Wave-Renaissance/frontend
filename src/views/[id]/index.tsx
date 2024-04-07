@@ -1,129 +1,59 @@
 "use client";
+
 import { MdShare, MdFavorite, MdStar, MdCurrencyBitcoin, MdArrowRight } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import Link from "next/link";
-import { CreatorFundingType } from "../../../utils/type";
-import { creatorFundingData } from "../../../utils/mock";
+import { CreatorFundingType } from "../../utils/type";
+import { creatorFundingData } from "../../utils/mock";
 
-import ProgressBar from "../../../components/ProgressBar";
-import WithdrawBtn from "../../../components/WithdrawBtn";
-import ApplicantsList from "../../../components/ApplicantsList";
+import ProgressBar from "../../components/ProgressBar";
+import WithdrawBtn from "../../components/WithdrawBtn";
+import ApplicantsList from "../../components/ApplicantsList";
 
-/* import { PhotoSection } from "~~/components/PhotoSection"
+import { useRouter } from "next/router";
 
+export const TaskDetailsView: FC = ({ params }: any) => {
+    const router = useRouter();
+    const { id } = router.query;
 
+    console.log(id);
 
-import { useAccount } from "wagmi";
-
-
-
-import AproveBtn from "~~/components/AproveBtn";
-import InvestBtn from "~~/components/InvestBtn";
-
-
-import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-import externalContracts from "~~/contracts/externalContracts";
-import { StarAccountAbi } from "~~/contracts/artifacts/StarAccount";
-import { BadgeCollectionAbi } from "~~/contracts/artifacts/BadgeCollection";
-
-import { Address } from "~~/components/scaffold-eth";
-import { useContractRead } from 'wagmi'; */
-
-
-export default function TaskDetailsView({ params }: any) {
-     const id = params.id
+    // const id = params.id
     const [project, setProject] = useState<CreatorFundingType | null>(null)
-    const [loading, setLoading] = useState<boolean>(true);
-    
+    const [loading, setLoading] = useState<boolean>(false);
+
     /* const {address: connectedAddress} = useAccount(); */
     const [depositAccount, setDepositAccount] = useState<string>('');
     const [badgesCollection, setBadgesCollection] = useState<string>('');
     const [projectName, setProjectName] = useState<string>('');
     const [pricePerToken, setPricePerToken] = useState<number>(0);
 
-
-/*    
-
-
-
-    const {data: creatorAddress} = useScaffoldContractRead({
-        contractName: "BambaStars",
-        functionName: "ownerOf",
-        args: [id],
-    } as never);
-
-        const {data: depositAccount} = useScaffoldContractRead({
-            contractName: "BambaStars",
-            functionName: "starsAccounts",
-            args: [id],
-        } as never);
-
-        const {data: badgesCollection} = useScaffoldContractRead({
-            contractName: "BambaStars",
-            functionName: "badgesCollections",
-            args: [id],
-        } as never);
+    // async function fetchFundingData() {
+    //     try {
+    //         const project = creatorFundingData.find((project) => project.id === parseInt(id))
+    //         setProject(project || null)
 
 
-        const {data: projectName} = useContractRead({
-            address: depositAccount,
-            abi: StarAccountAbi,
-            functionName: "name",
-        });
+    //     } catch (error) {
+    //         console.error("There was an error fetching the data:", error);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // }
 
-        const {data: pricePerToken} = useContractRead({
-            address: depositAccount,
-            abi: StarAccountAbi,
-            functionName: "pricePerToken"
-        });
-
-        const {data:totalSupply} = useContractRead({
-            address: depositAccount,
-            abi: StarAccountAbi,
-            functionName: "totalSupply"
-        })
-
-        const {data: targetSupply} = useContractRead({
-            address: depositAccount,
-            abi: StarAccountAbi,
-            functionName: "targetTotalSupply"
-        });
-
-        const {data: imageNFT} = useScaffoldContractRead({
-            contractName: "BambaStars",
-            functionName: "images",
-            args: [id],
-        } as never);
-
-        console.log("totalSupply", totalSupply);
-
-
- */
-    async function fetchFundingData() {
-        try {
-            const project = creatorFundingData.find((project) => project.id === parseInt(id))
-            setProject(project || null)
-
-
-        } catch (error) {
-            console.error("There was an error fetching the data:", error);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    useEffect(() => {
-        fetchFundingData();
-    }, [id]);
+    // useEffect(() => {
+    //     fetchFundingData();
+    // }, [id]);
 
     return (
         <div className='h-auto'>
-            {(project && !loading) ?
+            {(!project && !loading) ?
                 <div className="p-6 w-full md:p-12 md:px-30 lg:py-12 lg:px-48 text-primary-text">
                     <div>
-                    <Link href="/explore-tasks">
-                        &#8592; Back to Projects
-                    </Link>
+                        <Link href="/explore-tasks">
+                            &#8592; Back to Projects
+                            {id}
+                        </Link>
                         <button
                             className="inline-flex items-center text-sm h-8 py-2 px-4 bg-transparent text-primary-text rounded-lg shadow focus:outline-none hover:bg-gray-100"
                         >
@@ -137,11 +67,6 @@ export default function TaskDetailsView({ params }: any) {
                             <p>Save</p>
                         </button>
                     </div>
-
-                    {/* Photo Section, where are the pictures of the project */}
-
-                    {/* <PhotoSection pictures={project.projectImages} loading={loading} /> */}
-                    <img className="w-full" src={project.projectImages[0]} alt={String(projectName)} />
 
                     {/* Region with Description and Reserve Section */}
 
@@ -161,21 +86,21 @@ export default function TaskDetailsView({ params }: any) {
 
                             <div className="">
                                 <h2 className="text-xl font-semibold">Description</h2>
-{/*                                 <p className="mt-4">Deposit Account <Address address={depositAccount}/></p>
+                                {/*                                 <p className="mt-4">Deposit Account <Address address={depositAccount}/></p>
                                 <p className="mt-4">Badge Collection <Address address={badgesCollection}/></p> */}
-                                <p className="mt-4">{project.projectDescription}</p>
+                                {/* <p className="mt-4">{project.projectDescription}</p> */}
                             </div>
 
                             <div className="">
                                 <h2 className="text-xl font-semibold">Motivation</h2>
-                                <p className="mt-4">{project.motivation}</p>
+                                {/* <p className="mt-4">{project.motivation}</p> */}
                             </div>
                             <div className="">
                                 <h2 className="text-xl font-semibold">Project Links</h2>
                                 <div className="mt-4 flex flex-col">
-                                    {project.projectLinks.map((link, index) => (
+                                    {/* {project.projectLinks.map((link, index) => (
                                         <a key={index} href={link} className="text-primary-600 mb-2 hover:underline">{link}</a>
-                                    ))}
+                                    ))} */}
                                 </div>
                             </div>
 
@@ -193,7 +118,7 @@ export default function TaskDetailsView({ params }: any) {
                             <div className="flex items-center justify-center flex-col py-4 my-2">
                                 {/* <h2 className="font-semibold text-3xl py-2">Withdraw Milestones</h2> */}
                                 <div className="flex items-center justify-center">
-{/*                                     <AproveBtn 
+                                    {/*                                     <AproveBtn 
                                     id={id}/> */}
                                     {/* <MdArrowRight className="mx-1" /> */}
                                     {/* <InvestBtn id={id}/> */}
@@ -209,9 +134,9 @@ export default function TaskDetailsView({ params }: any) {
                                     <MdCurrencyBitcoin />Currency List:
                                 </p>
                                 <ul className="list-disc pl-6">
-                                    {project.currency.map((currency, index) => (
+                                    {/* {project.currency.map((currency, index) => (
                                         <li key={index} className="mt-1">{currency}</li>
-                                    ))}
+                                    ))} */}
                                 </ul>
                             </div>
 
@@ -219,7 +144,7 @@ export default function TaskDetailsView({ params }: any) {
                                 <p className="text-xl font-semibold flex items-center">
                                     <MdStar className="mr-2" />Star Applicants:
                                 </p>
-                                <ApplicantsList applicants={project.pplFunding as any} />
+                                {/* <ApplicantsList applicants={project.pplFunding as any} /> */}
                             </div>
                         </div>
                     </div>
