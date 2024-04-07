@@ -50,3 +50,39 @@ a {
   background: #1e3a8a; /* color of the scrollbar handle on hover */
 }
 
+.bullet-container::before {
+  content: "• ";
+  color: #1e3a8a; /* Adjust color as needed */
+  font-size: 1em; /* Adjust size as needed */
+ }
+
+ .page-container {
+  position: relative;
+  min-height: 100vh; /* Ensures the container covers the full viewport height */
+ }
+ 
+ .button-container {
+  position: absolute;
+  right: 20px; /* Adjust as needed */
+  bottom: 20px; /* Adjust as needed */
+  width: 150px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  background-color: blue; /* Hard blue color */
+  border-radius: 5px; /* Smooth rectangle shape */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease-in-out;
+ }
+ 
+ .button-container:hover {
+  transform: scale(1.05); /* Scales the button on hover */
+ }
+ 
+ .learn-more-button {
+  background: none;
+  border: none;
+  color: white; /* Text color */
+  cursor: pointer;
+  font-size: 16px; /* Adjust as needed */
+ }
