@@ -1,3 +1,6 @@
+const flowbite = require("flowbite-react/tailwind");
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   theme: {
     extend: {
@@ -7,14 +10,15 @@ module.exports = {
     },
   },
   mode: "jit",
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}", flowbite.content()],
   darkMode: "media",
   theme: {
     extend: {},
   },
   plugins: [
     require('daisyui'),
-    require("@tailwindcss/typography")
+    require("@tailwindcss/typography"),
+    flowbite.plugin(),
   ],
   daisyui: {
     styled: true,
