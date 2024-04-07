@@ -58,13 +58,13 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                             className="inline-flex items-center text-sm h-8 py-2 px-4 bg-transparent text-primary-text rounded-lg shadow focus:outline-none hover:bg-gray-100"
                         >
                             {<MdShare />}
-                            <p>Share</p>
+                            <p style={{ paddingLeft: '3px' }} >Share</p>
                         </button>
                         <button
                             className="inline-flex items-center text-sm h-8 py-2 px-4 bg-transparent text-primary-text rounded-lg shadow focus:outline-none hover:bg-gray-100"
                         >
                             {<MdFavorite/>}
-                            <p>Save</p>
+                            <p style={{ paddingLeft: '3px' }} >Save</p>
                         </button>
                     </div>
 
@@ -102,43 +102,45 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                             </div>
                             <div className="">
                                 <h2 className="text-xl font-semibold">Project Links</h2>
+
                                 <div className="mt-4 flex flex-col">
                                     {/* {project.projectLinks.map((link, index) => (
                                         <a key={index} href={link} className="text-primary-600 mb-2 hover:underline">{link}</a>
                                     ))} */}
                                 </div>
                             </div>
-
-                            <div className="flex items-center justify-center flex-col py-4 my-2">
+                            <div className="flex flex-row justify-center items-center">
+                                <button className="center right-1/2 center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Apply
+                                </button>
+                            </div>
+                            {/*<div className="flex items-center justify-center flex-col py-4 my-2">
                                 <h2 className="font-semibold text-3xl py-2">Withdraw</h2>
                                 <div className="flex items-center justify-center">
                                     <WithdrawBtn milestoneNum={1} />
-                                    {/* <MdArrowRight className="mx-1" /> */}
+                                    <MdArrowRight className="mx-1" /> 
                                     <WithdrawBtn milestoneNum={2} />
-                                    {/* <MdArrowRight className="mx-1" /> */}
+                                    <MdArrowRight className="mx-1" /> 
                                     <WithdrawBtn milestoneNum={3} />
                                 </div>
-                            </div>
+                            </div>*/}
                         </div>
                         {/* separation bar */}
                         <div className="hidden md:block w-[1px] bg-gray-300 h-[80%]"></div>
                         <div className="w-[20%]">
-                            <div className="mt-4">
-                                <p className="text-xl font-semibold flex items-center">
-                                    <MdCurrencyBitcoin />Currency List:
-                                </p>
-                                <ul className="list-disc pl-6">
-                                    {/* {project.currency.map((currency, index) => (
-                                        <li key={index} className="mt-1">{currency}</li>
-                                    ))} */}
-                                </ul>
-                            </div>
-
                             <div className="mt-6">
-                                <p className="text-xl font-semibold flex items-center">
-                                    Task Applicants:
+                                <p className="text-xl font-semibold flex items-center whitespace-nowrap">
+                                    ✔ Task Contributors:
                                 </p>
-                                {/* <ApplicantsList applicants={project.pplFunding as any} /> */}
+                                {/*Colocar lista de contribuidores com quantidade que cada um pegou}
+                                <ContributorList contributors={project.pplFunding as any} />*/}
+                            </div>
+                            <div className="mt-6">
+                                <p className="text-xl font-semibold flex items-center whitespace-nowrap">
+                                    ⏳ Task Applicants:
+                                </p>
+                                {/*Colocar lista de aplicantes 
+                                <ApplicantsList applicants={project.pplFunding as any} />*/}
                             </div>
                         </div>
                     </div>
