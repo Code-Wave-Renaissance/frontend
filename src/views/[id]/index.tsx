@@ -46,7 +46,7 @@ export const TaskDetailsView: FC = ({ params }: any) => {
     // }, [id]);
 
     return (
-        <div className='h-auto'>
+        <div className='h-auto  bg-black'>
             {(!project && !loading) ?
                 <div className="p-6 w-full md:p-12 md:px-30 lg:py-12 lg:px-48 text-primary-text">
                     <div>
@@ -81,6 +81,7 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                                 {/* <p className="text-2xl font-semibold">{(Number(totalSupply) / (Number(targetSupply) + 0.00001) * 100).toFixed(2)}% of ${Number(targetSupply)} goal</p> */}
                             </div>
                             <div className="w-full mb-4">
+                                <ProgressBar quantityToFund={Number()} quantityRaised={Number()} />
                                 {/* <ProgressBar quantityToFund={Number(targetSupply)} quantityRaised={Number(totalSupply)} /> */}
                             </div>
 
@@ -114,17 +115,6 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                                     <WithdrawBtn milestoneNum={3} />
                                 </div>
                             </div>
-
-                            <div className="flex items-center justify-center flex-col py-4 my-2">
-                                {/* <h2 className="font-semibold text-3xl py-2">Withdraw Milestones</h2> */}
-                                <div className="flex items-center justify-center">
-                                    {/*                                     <AproveBtn 
-                                    id={id}/> */}
-                                    {/* <MdArrowRight className="mx-1" /> */}
-                                    {/* <InvestBtn id={id}/> */}
-                                </div>
-                            </div>
-
                         </div>
                         {/* separation bar */}
                         <div className="hidden md:block w-[1px] bg-gray-300 h-[80%]"></div>
@@ -142,7 +132,7 @@ export const TaskDetailsView: FC = ({ params }: any) => {
 
                             <div className="mt-6">
                                 <p className="text-xl font-semibold flex items-center">
-                                    <MdStar className="mr-2" />Star Applicants:
+                                    Task Applicants:
                                 </p>
                                 {/* <ApplicantsList applicants={project.pplFunding as any} /> */}
                             </div>

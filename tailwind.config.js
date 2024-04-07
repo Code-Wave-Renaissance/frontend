@@ -1,4 +1,11 @@
 module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        'custom-text': '#123456', // Define your custom text color
+      },
+    },
+  },
   mode: "jit",
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "media",
