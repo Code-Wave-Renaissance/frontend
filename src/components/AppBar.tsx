@@ -6,6 +6,8 @@ import { useAutoConnect } from '../contexts/AutoConnectProvider';
 import NetworkSwitcher from './NetworkSwitcher';
 import NavElement from './nav-element';
 
+import { CreateTaskModalBtn } from './CreateTaskModalBtn';
+
 const WalletMultiButtonDynamic = dynamic(
 	async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
 	{ ssr: false }
@@ -88,6 +90,9 @@ export const AppBar: React.FC = () => {
 							href="/create-task"
 							navigationStarts={() => setIsNavOpen(false)}
 						/>
+
+						{/* <CreateTaskModalBtn /> */}
+
 						<WalletMultiButtonDynamic className="btn-ghost btn-sm rounded-btn text-lg text-primary-content mr-6 bg-primary hover:bg-secondary" />
 					</div>
 					<label
