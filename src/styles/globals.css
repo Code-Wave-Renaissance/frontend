@@ -86,3 +86,43 @@ a {
   cursor: pointer;
   font-size: 16px; /* Adjust as needed */
  }
+
+ .marker {
+  position: absolute;
+  top: 0;
+  width: 2px; /* Width of the marker */
+  height: 100%; /* Height of the marker */
+  background-color: black; /* Color of the marker */
+}
+
+.w-full {
+  position: relative;
+  /* Other styles */
+}
+
+.milestone-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px; /* Adjust padding to make the button tiny */
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 10px; /* Small font size */
+  position: absolute;
+  z-index: 1; /* Ensure the button is above the marker */
+  width: auto; /* Adjust width as needed */
+  height: 2px; /* Adjust height as needed */
+}
+
+.milestone-button:before {
+  content: " ";
+  position: absolute;
+  z-index: -1;
+  top: -5px;
+  left: 2px;
+  right: 5px;
+  bottom: 8px;
+  border: 10px solid #000000; /* White background */
+  border-radius: 5px;
+}

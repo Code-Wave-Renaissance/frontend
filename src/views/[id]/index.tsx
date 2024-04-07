@@ -57,13 +57,13 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                         <button
                             className="inline-flex items-center text-sm h-8 py-2 px-4 bg-transparent text-primary-text rounded-lg shadow focus:outline-none hover:bg-gray-100"
                         >
-                            {/* <MdShare /> */}
+                            {<MdShare />}
                             <p>Share</p>
                         </button>
                         <button
                             className="inline-flex items-center text-sm h-8 py-2 px-4 bg-transparent text-primary-text rounded-lg shadow focus:outline-none hover:bg-gray-100"
                         >
-                            {/* <MdFavorite /> */}
+                            {<MdFavorite/>}
                             <p>Save</p>
                         </button>
                     </div>
@@ -80,9 +80,13 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                                 </div>
                                 {/* <p className="text-2xl font-semibold">{(Number(totalSupply) / (Number(targetSupply) + 0.00001) * 100).toFixed(2)}% of ${Number(targetSupply)} goal</p> */}
                             </div>
-                            <div className="w-full mb-4">
+                            <div className="w-full mb-4" style={{ position: 'relative' }}>
                                 <ProgressBar quantityToFund={Number()} quantityRaised={Number()} />
-                                {/* <ProgressBar quantityToFund={Number(targetSupply)} quantityRaised={Number(totalSupply)} /> */}
+                                <div></div>
+                                <div className="marker" style={{ left: '33%' }}></div>
+                                <button className="milestone-button" style={{ left: '33%', transform: 'translateX(-50%)' }}>Milestone 1</button>
+                                <div className="marker" style={{ left: '66%' }}></div>
+                                <button className="milestone-button" style={{ left: '66%', transform: 'translateX(-50%)' }}>Milestone 2</button>
                             </div>
 
                             <div className="">
@@ -106,7 +110,7 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                             </div>
 
                             <div className="flex items-center justify-center flex-col py-4 my-2">
-                                <h2 className="font-semibold text-3xl py-2">Withdraw Milestones</h2>
+                                <h2 className="font-semibold text-3xl py-2">Withdraw</h2>
                                 <div className="flex items-center justify-center">
                                     <WithdrawBtn milestoneNum={1} />
                                     {/* <MdArrowRight className="mx-1" /> */}
