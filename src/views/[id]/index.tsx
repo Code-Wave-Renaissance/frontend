@@ -6,12 +6,13 @@ import { Transaction } from "@solana/web3.js";
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import Link from "next/link";
 import { TaskDataType } from "../../utils/type";
-import { createContract } from "utils/contract-client";
+// import { createContract } from "utils/contract-client";
 
 import ProgressBar from "../../components/ProgressBar";
 import WithdrawBtn from "../../components/WithdrawBtn";
 import ApplicantsList from "../../components/ApplicantsList";
 import ApplyBtn from "components/ApplyBtn";
+import useHandleChoosenOne from "components/useHandleChoosenOne";
 
 import { Badge, Avatar, Rating, Button } from "flowbite-react";
 import { FaFacebookMessenger, FaGlobe } from "react-icons/fa";
@@ -20,20 +21,22 @@ import { useRouter } from "next/router";
 
 export const TaskDetailsView: FC = ({ params }: any) => {
 
-    const handleChoosenOne = async (id, workerPublicKey, price) => {
-        console.log('user choosen for job with id:', id, "and wallet:", workerPublicKey);
+    // const handleChoosenOne = async (id, workerPublicKey, price) => {
+    //     console.log('user choosen for job with id:', id, "and wallet:", workerPublicKey);
 
-        const { connection } = useConnection();
-        const { publicKey: ownerPublicKey, sendTransaction } = useWallet();
+    //     const { connection } = useConnection();
+    //     const { publicKey: ownerPublicKey, sendTransaction } = useWallet();
 
-        const transaction = new Transaction();
-        transaction.add(
-            createContract(ownerPublicKey, workerPublicKey, id, Math.round(price))
-        );
+    //     const transaction = new Transaction();
+    //     transaction.add(
+    //         createContract(ownerPublicKey, workerPublicKey, id, Math.round(price))
+    //     );
 
-        const sig = await sendTransaction(transaction, connection)
-        console.log(sig);
-    }
+    //     const sig = await sendTransaction(transaction, connection)
+    //     console.log(sig);
+    // }
+
+    const handleChoosenOne = useHandleChoosenOne();
 
     const router = useRouter();
     const { id } = router.query;
