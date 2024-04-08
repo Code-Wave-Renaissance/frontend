@@ -13,23 +13,12 @@ import WithdrawBtn from "../../components/WithdrawBtn";
 import ApplicantsList from "../../components/ApplicantsList";
 import ApplyBtn from "components/ApplyBtn";
 import useHandleChoosenOne from "components/useHandleChoosenOne";
+import useHandleMilestoneApprove from "components/useHandleMilestoneApproved";
 
 import { Badge, Avatar, Rating, Button } from "flowbite-react";
 import { FaFacebookMessenger, FaGlobe } from "react-icons/fa";
 
 import { useRouter } from "next/router";
-
-const handleMilestone1 = () => {
-    console.log("Milestone 1");
-}
-
-const handleMilestone2 = () => {
-    console.log("Milestone 2");
-}
-
-const handleMilestone3 = () => {
-    console.log("Milestone 3");
-}
 
 export const TaskDetailsView: FC = ({ params }: any) => {
 
@@ -49,6 +38,8 @@ export const TaskDetailsView: FC = ({ params }: any) => {
     // }
 
     const handleChoosenOne = useHandleChoosenOne();
+
+    const handleMilestoneApprove = useHandleMilestoneApprove();
 
     const router = useRouter();
     const { id } = router.query;
@@ -86,6 +77,15 @@ export const TaskDetailsView: FC = ({ params }: any) => {
         fetchData(id as any); // Call the fetchData function
     }, []); // Empty dependency array ensures this effect runs only once after the initial render
 
+
+    const handleMilestone = (step: Number) => {
+        
+        console.log("Milestone: ", step);
+        Object.keys(task.applicants).forEach((applicant, _index) => {
+            const applicantPublickey = task.applicants[applicant].address;
+            handleMilestoneApprove(task.id, applicantPublickey, step);
+        });
+    }
 
     return (
         <div className='flex text-primary bg-gradient-to-br from-base-200 to-base-300 shadow-lg rounded-xl overflow-hidden w-[70vw]'>
@@ -181,11 +181,11 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                             <div className="w-full mt-4" style={{ position: 'relative' }}>
                                 <ProgressBar milestone={2} />
                                 <div className="marker" style={{ left: '33%' }}></div>
-                                <button onClick={() => handleMilestone1} className="milestone-button" style={{ left: '33%', transform: 'translateX(-50%)' }}>Milestone 1</button>
+                                <button onClick={() => handleMilestone(1)} className="milestone-button" style={{ left: '33%', transform: 'translateX(-50%)' }}>Milestone 1</button>
                                 <div className="marker" style={{ left: '66%' }}></div>
-                                <button onClick={() => handleMilestone2} className="milestone-button" style={{ left: '66%', transform: 'translateX(-50%)' }}>Milestone 2</button>
+                                <button onClick={() => handleMilestone(2)} className="milestone-button" style={{ left: '66%', transform: 'translateX(-50%)' }}>Milestone 2</button>
                                 {/* <div className="marker" style={{ left: '99%' }}></div> */}
-                                <button onClick={() => handleMilestone3}className="milestone-button" style={{ left: '100%', transform: 'translateX(-50%)' }}>Completed</button>
+                                <button onClick={() => handleMilestone(3)}className="milestone-button" style={{ left: '100%', transform: 'translateX(-50%)' }}>Completed</button>
                             </div>
                         </div>
 

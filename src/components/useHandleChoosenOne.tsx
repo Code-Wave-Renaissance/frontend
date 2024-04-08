@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Transaction } from '@solana/web3.js';
 import { createContract } from 'utils/contract-client';
