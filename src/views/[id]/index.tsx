@@ -18,22 +18,23 @@ import { FaFacebookMessenger, FaGlobe } from "react-icons/fa";
 
 import { useRouter } from "next/router";
 
-const handleApply = async (id, workerPublicKey, price) => {
-    console.log('user choosen for job with id:', id, "and wallet:", workerPublicKey);
-
-    const { connection } = useConnection();
-    const { publicKey: ownerPublicKey, sendTransaction } = useWallet();
-
-    const transaction = new Transaction();
-    transaction.add(
-        createContract(ownerPublicKey, workerPublicKey, id, Math.round(price))
-    );
-
-    const sig = await sendTransaction(transaction, connection)
-    console.log(sig);
-}
-
 export const TaskDetailsView: FC = ({ params }: any) => {
+
+    const handleChoosenOne = async (id, workerPublicKey, price) => {
+        console.log('user choosen for job with id:', id, "and wallet:", workerPublicKey);
+
+        const { connection } = useConnection();
+        const { publicKey: ownerPublicKey, sendTransaction } = useWallet();
+
+        const transaction = new Transaction();
+        transaction.add(
+            createContract(ownerPublicKey, workerPublicKey, id, Math.round(price))
+        );
+
+        const sig = await sendTransaction(transaction, connection)
+        console.log(sig);
+    }
+
     const router = useRouter();
     const { id } = router.query;
 
@@ -206,7 +207,7 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                                         </div>
                                         {/* You can add additional elements/icons here if needed */}
 
-                                        <button onClick={() => handleApply(id, task.applicants[applicant].address, task.price)}>
+                                        <button onClick={() => handleChoosenOne(id, task.applicants[applicant].address, task.price)}>
                                             <MdArrowRight size={30} color='black' />
                                         </button>
                                     </div>
