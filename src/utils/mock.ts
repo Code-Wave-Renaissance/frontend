@@ -38,28 +38,25 @@ export const taskData = [
         description: 'Embark on a journey through the artist\'s and explore a world where colors dance and shapes intertwine.',
         price: 5000,
         verifiedAddresses: {},
-        applicants: {
-            '0': {
-                id: '0',
+        applicants: [
+            {
                 fid: 0,
                 displayName: 'John Doe',
                 pfpUrl: 'https://picsum.photos/200',
                 address: '0x1234567890'
             },
-            '1': {
-                id: '1',
+             {
                 fid: 1,
                 displayName: 'Alice Johnson',
                 pfpUrl: 'https://picsum.photos/200',
                 address: '0x0987654321'
             },
-            '2': {
-                id: '2',
+            {
                 fid: 2,
                 displayName: 'Michael Brown',
                 pfpUrl: 'https://picsum.photos/200',
                 address: '0x1357924680'
             }
-        }
+        ]
     }
 ];

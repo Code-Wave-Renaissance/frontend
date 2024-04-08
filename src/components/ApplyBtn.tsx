@@ -6,24 +6,25 @@ import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { displayName } from "react-wavify";
 
+
+
 // PUT UPDATE FUNCTION HERE API
-const updateTask = async ({ id }) => {
-    // try {
-    //     const response = await fetch(`https://api.farcaster.com/update/${id}`, {
-    //         method: 'PUT',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             displayName: name,
-    //             address: wallet,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    // } catch (error) {
-    //     console.error(error);
-    // }
+const updateTask = async ({ id, newApplicants }) => {
+    try {
+        const response = await fetch(`https://api.farcaster.com/add-applicants/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                newApplicants,
+            }),
+        });
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error(error);
+    }
 
     console.log('Update task not ready yet')
 }
@@ -32,17 +33,27 @@ export default function ApplyBtn({ id }) {
     const [openModal, setOpenModal] = useState(false);
     const [name, setName] = useState('');
     const [wallet, setWallet] = useState('');
+    const [newApplicants, setNewApplicants] = useState({});
 
     function onCloseModal() {
         setOpenModal(false);
         setName('');
         setWallet('');
+        setNewApplicants({});
     }
 
+    const handleNewApplicants = ({name, wallet}) => {
+        setNewApplicants(
+            {displayName: name, address: wallet}
+        );
+
+        updateTask({id, newApplicants});
+        console.log(newApplicants);
+    }
 
     return (
         <>
-            <Button size="lg" onClick={() => setOpenModal(true)} gradientDuoTone="purpleToBlue" className="bg-primary hover:bg-primary-focus">Apply to this job</Button>
+            <Button size="md" onClick={() => setOpenModal(true)} gradientDuoTone="purpleToBlue" className="bg-primary hover:bg-primary-focus">Apply to this job</Button>
 
             <Modal show={openModal} size="md" onClose={onCloseModal} popup>
                 <Modal.Header />
@@ -75,7 +86,7 @@ export default function ApplyBtn({ id }) {
                         </div>
 
                         <div className="w-full">
-                            <Button onClick={() => updateTask({ id })} size="md" gradientDuoTone="purpleToBlue" className="bg-primary hover:bg-primary-focus">Apply</Button>
+                            <Button onClick={() => handleNewApplicants({name, wallet})} size="md" gradientDuoTone="purpleToBlue" className="bg-primary hover:bg-primary-focus">Apply</Button>
                         </div>
                     </div>
                 </Modal.Body>
