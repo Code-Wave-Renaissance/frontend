@@ -19,6 +19,18 @@ import { FaFacebookMessenger, FaGlobe } from "react-icons/fa";
 
 import { useRouter } from "next/router";
 
+const handleMilestone1 = () => {
+    console.log("Milestone 1");
+}
+
+const handleMilestone2 = () => {
+    console.log("Milestone 2");
+}
+
+const handleMilestone3 = () => {
+    console.log("Milestone 3");
+}
+
 export const TaskDetailsView: FC = ({ params }: any) => {
 
     // const handleChoosenOne = async (id, workerPublicKey, price) => {
@@ -166,16 +178,14 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                                 </div>
                             </div>
 
-
-
                             <div className="w-full mt-4" style={{ position: 'relative' }}>
                                 <ProgressBar milestone={2} />
                                 <div className="marker" style={{ left: '33%' }}></div>
-                                <button className="milestone-button" style={{ left: '33%', transform: 'translateX(-50%)' }}>Milestone 1</button>
+                                <button onClick={() => handleMilestone1} className="milestone-button" style={{ left: '33%', transform: 'translateX(-50%)' }}>Milestone 1</button>
                                 <div className="marker" style={{ left: '66%' }}></div>
-                                <button className="milestone-button" style={{ left: '66%', transform: 'translateX(-50%)' }}>Milestone 2</button>
+                                <button onClick={() => handleMilestone2} className="milestone-button" style={{ left: '66%', transform: 'translateX(-50%)' }}>Milestone 2</button>
                                 {/* <div className="marker" style={{ left: '99%' }}></div> */}
-                                <button className="milestone-button" style={{ left: '100%', transform: 'translateX(-50%)' }}>Completed</button>
+                                <button onClick={() => handleMilestone3}className="milestone-button" style={{ left: '100%', transform: 'translateX(-50%)' }}>Completed</button>
                             </div>
                         </div>
 

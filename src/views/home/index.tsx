@@ -1,15 +1,9 @@
-"use client"
-
 // Next, React
 import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 // Wallet
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-
-// Components
-import { RequestAirdrop } from '../../components/RequestAirdrop';
-import pkg from '../../../package.json';
 
 // Store
 import useUserSOLBalanceStore from '../../stores/useUserSOLBalanceStore';
@@ -78,17 +72,17 @@ export const HomeView: FC = ({ }) => {
 				<div className='mt-[12vh]'>
 					<h1 className="h-[30vh] w-screen text-[50pt] sm:text-[80pt] md:text-[120pt] lg:text-[150pt] xl:text-[180pt] 2xl:text-[200pt] font-extrabold leading-[200pt] tracking-tight">
 						<Wave fill="#1d4ed8" mask="url(#mask)" options={{ points: 3, speed: 0.1, amplitude: 80, height: waveHeight }} style={{ height: 'inherit' }}>
-							<text x={textX/6} y="200" fill="white">TASKFLOW</text>
+							<text x={textX / 12} y="200" fill="white" className="md:text-[120pt] lg:text-[150pt] xl:text-[180pt] 2xl:text-[200pt]">TASKFLOW</text>
 							<mask id="mask">
-								<text x={textX/6} y="200" fill="white">TASKFLOW</text>
+								<text x={textX / 12} y="200" fill="white" className="md:text-[120pt] lg:text-[150pt] xl:text-[180pt] 2xl:text-[200pt]">TASKFLOW</text>
 							</mask>
 						</Wave>
 					</h1>
 				</div>
-				<h4 className="md:w-full text-4x1 md:text-8xl text-center font-bold text-primary-focus p-0">
+				<h4 className="md:w-full md:text-[20pt] lg:text-[30pt] xl:text-[40pt] 2xl:text-[50pt] text-center font-bold text-primary-focus p-0">
 					FREELANCING MADE EASY
 				</h4>
-				<p className='text-secondary text-3x1 md:text-4xl leading-relaxed p-0'>Find, Create and Share Jobs like never seen before</p>
+				<p className='text-secondary text-lg md:text-2xl lg:text-4xl leading-relaxed p-0'>Find, Create and Share Jobs like never seen before</p>
 			</div>
 		</div>
 	);
