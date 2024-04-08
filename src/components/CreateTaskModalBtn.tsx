@@ -49,7 +49,7 @@ export const CreateTaskModalBtn: FC = ({ }) => {
                         </div>
                     }
                 >
-                    <Button className="bg-primary hover:bg-primary-focus">Create Task</Button>
+                    <Button size="xl" gradientDuoTone="purpleToBlue" className="bg-primary hover:bg-primary-focus">Create Task</Button>
                 </Popover>
             </>
         </div>

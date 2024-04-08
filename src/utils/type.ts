@@ -27,7 +27,7 @@ export type TaskDataType = {
     description: string;
     price: number;
     verifiedAddresses: object;
-    applicants: { [key: string]: TaskApplicantType };
+    applicants: object;
     status: string;
 };
 

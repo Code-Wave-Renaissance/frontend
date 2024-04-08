@@ -5,7 +5,7 @@ interface ApplicantsListProps {
     applicants: TaskApplicantType[];
 }
 
-const ApplicantsList: React.FC<ApplicantsListProps> = ({ applicants }) => {
+const ApplicantsList: React.FC<ApplicantsListProps> = ({ applicants } : any) => {
     return (
         <div className="overflow-y-auto">
             {applicants.map((applicant, index) => (

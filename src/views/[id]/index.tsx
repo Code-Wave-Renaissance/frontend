@@ -8,13 +8,17 @@ import { TaskDataType } from "../../utils/type";
 import ProgressBar from "../../components/ProgressBar";
 import WithdrawBtn from "../../components/WithdrawBtn";
 import ApplicantsList from "../../components/ApplicantsList";
+import ApplyBtn from "components/ApplyBtn";
 
-import { Badge } from "flowbite-react";
-import { Avatar } from "flowbite-react";
-import { Rating } from 'flowbite-react';
+import { Badge, Avatar, Rating, Button } from "flowbite-react";
 import { FaFacebookMessenger, FaGlobe } from "react-icons/fa";
 
 import { useRouter } from "next/router";
+
+// implement this function
+const handleApply = async (id, wallet) => {
+    console.log('user choosen for job with id:', id, "and wallet:", wallet);
+}
 
 export const TaskDetailsView: FC = ({ params }: any) => {
     const router = useRouter();
@@ -81,7 +85,7 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                     {/* Region with Description and Reserve Section */}
 
                     <div className="flex flex-col justify-between pt-2 md:flex-row md:space-x-6">
-                        <div className="w-[80%]">
+                        <div className="w-[70%]">
 
                             {/* MAKE THIS A COMPONENT  */}
                             <div className='flex justify-between w-full'>
@@ -162,16 +166,46 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                         {/* <div className="hidden md:block w-[1px] bg-gray-300 h-[80%]"></div> */}
 
                         {/* Region with Task Applicants */}
-                        <div className="w-[20%] flex flex-col items-start mt-6 ml-0 h-full">
-                            <p className="text-2xl font-semibold flex items-center whitespace-nowrap">
-                                ⏳Applicants
+                        <div className="w-[30%] flex flex-col items-start mt-6 ml-0 h-full">
+                            <p className="text-3xl font-bold flex items-center self-center mb-2">
+                                APPLICANTS
                             </p>
 
                             {/* <ApplicantsList applicants={task.applicants as any} /> */}
+
+                            {/* MAP FUNCTION TO CREATE A LIST OF APPLICANTS */}
+                            <div className="overflow-y-auto flex flex-col text-gray w-full">
+                                {Object.keys(task.applicants).map((applicant, index) => (
+                                    <div key={index} className="py-2 px-4 flex items-center mb-4 bg-secondary rounded-2xl self-center">
+                                        <div>
+                                            <Avatar img={task.applicants[applicant].pfpUrl} rounded size="md" placeholderInitials={task.applicants[applicant].displayName.charAt(0) || ""} >
+                                                <div className="space-y-1 font-medium">
+                                                    <div className='flex align-middle justify-between'>
+                                                        <h1 className='text-2xl text-primary mr-1'>{task.applicants[applicant].displayName}</h1>
+                                                    </div>
+                                                    <Rating size="md">
+                                                        <Rating.Star />
+                                                        <p className="ml-2 text-sm font-bold text-gray-900">5.0</p>
+                                                    </Rating>
+                                                    {/* <h2 className="text-md text-gray-500">{task.applicants[applicant].address}</h2> */}
+                                                </div>
+                                            </Avatar>
+                                        </div>
+                                        {/* You can add additional elements/icons here if needed */}
+
+                                        <button onClick={() => handleApply(id, task.applicants[applicant].address)}>
+                                            <MdArrowRight size={30} color='black' />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+
                             <div className="flex flex-row justify-center items-center self-end">
-                                <button className="bg-primary hover:bg-primary-focus text-white font-bold py-2 px-4 rounded">
+                                {/* <button className="bg-primary hover:bg-primary-focus text-white font-bold py-2 px-4 rounded">
                                     Apply
-                                </button>
+                                </button> */}
+                                {/* <Button size="lg" gradientDuoTone="purpleToBlue" className="bg-primary hover:bg-primary-focus">Apply</Button> */}
+                                <ApplyBtn id={id} />
                             </div>
                         </div>
                     </div>
