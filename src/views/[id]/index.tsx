@@ -120,7 +120,6 @@ export const TaskDetailsView: FC = ({ params }: any) => {
 
                             <div className="flex flex-col justify-between pt-2 md:flex-row md:space-x-6">
                                 <div className="w-full">
-
                                     {/* MAKE THIS A COMPONENT  */}
                                     <div className='flex justify-between w-full'>
                                         <div>

@@ -7,17 +7,16 @@ import { useState } from "react";
 import { displayName } from "react-wavify";
 
 
-
-// PUT UPDATE FUNCTION HERE API
-const updateTask = async ({ id, newApplicants }) => {
+const updateTask = async ({ id, name, wallet }) => {
     try {
-        const response = await fetch(`https://api.farcaster.com/add-applicants/${id}`, {
+        const response = await fetch(`https://backend-blue-two.vercel.app/api/add-applicants/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                newApplicants,
+                displayName: name,
+                address: wallet,
             }),
         });
         const data = await response.json();
@@ -25,7 +24,6 @@ const updateTask = async ({ id, newApplicants }) => {
     } catch (error) {
         console.error(error);
     }
-
     console.log('Update task not ready yet')
 }
 
@@ -33,22 +31,21 @@ export default function ApplyBtn({ id }) {
     const [openModal, setOpenModal] = useState(false);
     const [name, setName] = useState('');
     const [wallet, setWallet] = useState('');
-    const [newApplicants, setNewApplicants] = useState({});
+    // const [newApplicants, setNewApplicants] = useState({});
 
     function onCloseModal() {
         setOpenModal(false);
         setName('');
         setWallet('');
-        setNewApplicants({});
+        // setNewApplicants({});
     }
 
-    const handleNewApplicants = ({name, wallet}) => {
-        setNewApplicants(
-            {displayName: name, address: wallet}
-        );
+    const handleNewApplicants = ({ name, wallet }) => {
+        const dummy = ({ displayName: name as string, address: wallet as string } as any)
 
-        updateTask({id, newApplicants});
-        console.log(newApplicants);
+        // setNewApplicants(dummy);
+
+        updateTask({ id, name, wallet });
     }
 
     return (
@@ -86,7 +83,7 @@ export default function ApplyBtn({ id }) {
                         </div>
 
                         <div className="w-full">
-                            <Button onClick={() => handleNewApplicants({name, wallet})} size="md" gradientDuoTone="purpleToBlue" className="bg-primary hover:bg-primary-focus">Apply</Button>
+                            <Button onClick={() => handleNewApplicants({ name, wallet })} size="md" gradientDuoTone="purpleToBlue" className="bg-primary hover:bg-primary-focus">Apply</Button>
                         </div>
                     </div>
                 </Modal.Body>
