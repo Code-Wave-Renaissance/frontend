@@ -2,8 +2,11 @@
 
 import { MdShare, MdFavorite, MdStar, MdCurrencyBitcoin, MdArrowRight } from "react-icons/md";
 import { useEffect, useState, FC } from "react";
+import { Transaction } from "@solana/web3.js";
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import Link from "next/link";
 import { TaskDataType } from "../../utils/type";
+import { createContract } from "utils/contract-client";
 
 import ProgressBar from "../../components/ProgressBar";
 import WithdrawBtn from "../../components/WithdrawBtn";
@@ -15,9 +18,19 @@ import { FaFacebookMessenger, FaGlobe } from "react-icons/fa";
 
 import { useRouter } from "next/router";
 
-// implement this function
-const handleApply = async (id, wallet) => {
-    console.log('user choosen for job with id:', id, "and wallet:", wallet);
+const handleApply = async (id, workerPublicKey, price) => {
+    console.log('user choosen for job with id:', id, "and wallet:", workerPublicKey);
+
+    const { connection } = useConnection();
+    const { publicKey: ownerPublicKey, sendTransaction } = useWallet();
+
+    const transaction = new Transaction();
+    transaction.add(
+        createContract(ownerPublicKey, workerPublicKey, id, Math.round(price))
+    );
+
+    const sig = await sendTransaction(transaction, connection)
+    console.log(sig);
 }
 
 export const TaskDetailsView: FC = ({ params }: any) => {
@@ -193,7 +206,7 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                                         </div>
                                         {/* You can add additional elements/icons here if needed */}
 
-                                        <button onClick={() => handleApply(id, task.applicants[applicant].address)}>
+                                        <button onClick={() => handleApply(id, task.applicants[applicant].address, task.price)}>
                                             <MdArrowRight size={30} color='black' />
                                         </button>
                                     </div>
