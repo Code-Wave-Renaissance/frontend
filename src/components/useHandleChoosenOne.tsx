@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { Transaction } from '@solana/web3.js';
+import { Transaction, PublicKey } from '@solana/web3.js';
 import { createContract } from 'utils/contract-client';
 
 
@@ -16,7 +16,8 @@ const makeDeal = async ({ id, wallet }) => {
                 status: "closed",
             }),
         });
-        const data = await response.json();
+
+        const data = await response.text();
         console.log(data);
     } catch (error) {
         console.error(error);
@@ -29,15 +30,17 @@ export default function useHandleChoosenOne() {
     const { publicKey: ownerPublicKey, sendTransaction } = useWallet();
 
     const handleChoosenOne = async (id, workerPublicKey, price) => {
-        console.log('user chosen for job with id:', id, "and wallet:", workerPublicKey);
+        console.log('user chosen for job with id:', id, "and workerPublicKey:", workerPublicKey);
+
+        const quantity = Math.round(price) * 10000;
 
         const transaction = new Transaction();
         transaction.add(
-            createContract(ownerPublicKey, workerPublicKey, id, Math.round(price))
+            createContract(ownerPublicKey, new PublicKey(workerPublicKey), id, quantity)
         );
 
         const sig = await sendTransaction(transaction, connection)
-        console.log(sig);
+        console.log("Created contract Transaction: ", sig);
         
         await makeDeal({id, wallet: workerPublicKey});
     };

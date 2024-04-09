@@ -1,5 +1,5 @@
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { Transaction } from '@solana/web3.js';
+import { Transaction, PublicKey } from '@solana/web3.js';
 import { incrementStep } from 'utils/contract-client';
 
 const useHandleMilestoneApprove = () => {
@@ -15,15 +15,15 @@ const useHandleMilestoneApprove = () => {
             return;
         }
         
-        console.log('milestone ' + step + ' approved: ', id);
+        console.log('milestone ' + actualStep + ' approved id: ' + id, " worker: ", workerPublicKey);
 
         const transaction = new Transaction();
         transaction.add(
-            incrementStep(ownerPublicKey, workerPublicKey, id)
+            incrementStep(ownerPublicKey, new PublicKey(workerPublicKey), id)
         );
 
         const sig = await sendTransaction(transaction, connection)
-        console.log(sig);
+        console.log("Milestone: " + actualStep + " transaction: ", sig);
 
         actualStep++;
     };

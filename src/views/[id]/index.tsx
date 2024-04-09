@@ -35,6 +35,8 @@ export const TaskDetailsView: FC = ({ params }: any) => {
     //     console.log(sig);
     // }
 
+    let notifyUpdate = 0;
+
     const handleChoosenOne = useHandleChoosenOne();
     const handleMilestoneApprove = useHandleMilestoneApprove();
 
@@ -72,12 +74,17 @@ export const TaskDetailsView: FC = ({ params }: any) => {
         };
 
         fetchData(id as any); // Call the fetchData function
-    }, []); // Empty dependency array ensures this effect runs only once after the initial render
+    }, [notifyUpdate]); // Empty dependency array ensures this effect runs only once after the initial render
+
+    const handleChoosenOneAndUpdate = (id, workerPublicKey, price) => {
+        handleChoosenOne(id, workerPublicKey, price);
+        notifyUpdate += 1;
+    }
 
     const handleMilestone = (step: Number) => {
         console.log("Milestone: ", step);
         const workerPublicKey = task.dealWith;
-        handleMilestoneApprove(task.id, workerPublicKey, step);
+        handleMilestoneApprove(id, workerPublicKey, step);
     }
 
     return (
@@ -224,7 +231,7 @@ export const TaskDetailsView: FC = ({ params }: any) => {
                                             </Rating>
                                             {/* You can add additional elements/icons here if needed */}
 
-                                            <button onClick={() => handleChoosenOne(id, task.applicants[applicant].address, task.price)}>
+                                            <button onClick={() => handleChoosenOneAndUpdate(id, task.applicants[applicant].address, task.price)}>
                                                 {/* <MdArrowRight size={30} color='black' /> */}
                                                 Make Deal
                                             </button>
