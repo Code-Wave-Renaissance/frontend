@@ -38,6 +38,8 @@ export default function useHandleChoosenOne() {
 
         const sig = await sendTransaction(transaction, connection)
         console.log(sig);
+        
+        await makeDeal({id, wallet: workerPublicKey});
     };
 
     return handleChoosenOne;
