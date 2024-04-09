@@ -1,33 +1,3 @@
-export const creatorFundingData = [
-    {
-        id: 0,
-        creatorName: 'Jane Smith',
-        projectName: 'Code with Rosalbinha',
-        projectDescription: 'Embark on a journey through the artist\'s imagination with this captivating project. Delve into the depths of creativity and explore a world where colors dance and shapes intertwine.',
-        motivation: 'I am driven by a passion to express my innermost thoughts and emotions through art. With your support, I can continue to bring my visions to life and share them with the world.',
-        quantityToFund: 5000,
-        quantityRaised: 3800,
-        currency: [
-            'ETH',
-            'DAI',
-        ],
-        imageNFT: 'https://picsum.photos/900/300',
-        projectImages: [
-            'https://picsum.photos/900/300',
-            'https://picsum.photos/900/300',
-            'https://picsum.photos/900/300',
-            'https://picsum.photos/900/300',
-            'https://picsum.photos/900/300'
-        ],
-        pplFunding: [
-            { name: 'John Doe', quantityInvested: 200 },
-            { name: 'Alice Johnson', quantityInvested: 800 },
-            { name: 'Michael Brown', quantityInvested: 1200 }
-        ],
-        projectLinks: ['https://www.artisticendeavor.com', 'https://www.instagram.com/artisticendeavor']
-    },
-];
-
 export const taskData = [
     {
         id: '0',
@@ -57,6 +27,8 @@ export const taskData = [
                 pfpUrl: 'https://picsum.photos/200',
                 address: '0x1357924680'
             }
-        ]
+        ],
+        status: 'open',
+        dealWith: '0x1234567890'
     }
 ];
