@@ -35,8 +35,6 @@ export const TaskDetailsView: FC = ({ params }: any) => {
     //     console.log(sig);
     // }
 
-    let notifyUpdate = 0;
-
     const handleChoosenOne = useHandleChoosenOne();
     const handleMilestoneApprove = useHandleMilestoneApprove();
 
@@ -50,6 +48,8 @@ export const TaskDetailsView: FC = ({ params }: any) => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const [shortAddress, setShortAddress] = useState<string>("")
+
+    const [notifyUpdate, setNotifyUpdate] = useState<number>(0);
 
     useEffect(() => {
         // Fetch data from API when component mounts
@@ -76,9 +76,9 @@ export const TaskDetailsView: FC = ({ params }: any) => {
         fetchData(id as any); // Call the fetchData function
     }, [notifyUpdate]); // Empty dependency array ensures this effect runs only once after the initial render
 
-    const handleChoosenOneAndUpdate = (id, workerPublicKey, price) => {
-        handleChoosenOne(id, workerPublicKey, price);
-        notifyUpdate += 1;
+    const handleChoosenOneAndUpdate = async (id, workerPublicKey, price) => {
+        await handleChoosenOne(id, workerPublicKey, price);
+        setNotifyUpdate(notifyUpdate + 1);
     }
 
     const handleMilestone = (step: Number) => {
