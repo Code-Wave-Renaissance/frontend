@@ -1,23 +1,3 @@
-export type CreatorFundingType = {
-    id: number;
-    creatorName: string;
-    projectName: string;
-    projectDescription: string;
-    motivation: string;
-    quantityToFund: number;
-    quantityRaised: number;
-    currency: string[];
-    imageNFT: string;
-    projectImages: string[];
-    pplFunding: { name: string; quantityInvested: number }[];
-    projectLinks: string[]; 
-};
-
-export type pplFundingType = {
-    name: string;
-    quantityInvested: number;
-};
-
 export type TaskDataType = {
     id: string;
     fid: number;
@@ -27,8 +7,9 @@ export type TaskDataType = {
     description: string;
     price: number;
     verifiedAddresses: object;
-    applicants: object;
+    applicants: object[];
     status: string;
+    dealWith: string;
 };
 
 export type TaskApplicantType = {

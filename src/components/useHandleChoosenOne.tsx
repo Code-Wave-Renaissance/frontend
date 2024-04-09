@@ -2,7 +2,28 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Transaction } from '@solana/web3.js';
 import { createContract } from 'utils/contract-client';
 
-const useHandleChoosenOne = () => {
+
+const makeDeal = async ({ id, wallet }) => {
+    try {
+        const response = await fetch(`https://backend-blue-two.vercel.app/api/makeDeal/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                dealWith: wallet,
+                status: "closed",
+            }),
+        });
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error(error);
+    }
+    console.log('Patch task not ready yet');
+};
+
+export default function useHandleChoosenOne() {
     const { connection } = useConnection();
     const { publicKey: ownerPublicKey, sendTransaction } = useWallet();
 
@@ -20,5 +41,3 @@ const useHandleChoosenOne = () => {
 
     return handleChoosenOne;
 };
-
-export default useHandleChoosenOne;

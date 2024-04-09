@@ -17,7 +17,7 @@ export function CardProject({ id, fid, displayName, title, description, price, a
     const [shortAddress, setShortAddress] = useState<string>(verifiedAddresses[0].slice(0, 6) + "..." + verifiedAddresses[0].slice(-5) || "")
 
     return (
-        <div className="flex bg-gradient-to-br from-base-200 to-base-300 shadow-lg rounded-xl overflow-hidden w-[350pt] transition-transform duration-200">
+        <div className="flex bg-gradient-to-br from-base-200 to-base-300 shadow-lg rounded-xl overflow-hidden w-[300pt] transition-transform duration-200">
             {loading ?
                 <div className="bg-gray-200 aspect-square rounded-xl object-cover w-full flex flex-col justify-center items-center">
                     {/* <FaRedo size={20} color='white' className="animate-spin" /> */}
@@ -35,22 +35,23 @@ export function CardProject({ id, fid, displayName, title, description, price, a
                                     </div>
                                     <p className='text-gray-500 font-semibold'>Due to: {"01/04/2027"}</p>
                                 </div>
-                                <h2 className='text-4xl font-bold text-primary-focus align-middle self-center'>${price}</h2>
+                                <h2 className='text-3xl font-bold text-primary-focus self-auto'>${price}.00</h2>
                             </div>
 
                             {/* HARDCODED TAG SECTION (IMPLEMENT FILTERING LATER) */}
                             <div className='text-lg flex align-middle items-center text-gray-600'>
                                 Tags:
-                                {/* <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Art</span>
-                                <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Easy</span>
-                                <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Fast</span>
-                                <span className='text-gray-600 self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Code</span> */}
-                                <div className='flex ml-1 flex-wrap gap-1'>
+                                <span className='text-gray-600 hover:border-primary hover:text-primary transition cursor-pointer self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Art</span>
+                                <span className='text-gray-600 hover:border-primary hover:text-primary transition cursor-pointer self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Easy</span>
+                                <span className='text-gray-600 hover:border-primary hover:text-primary transition cursor-pointer self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Fast</span>
+                                <span className='text-gray-600 hover:border-primary hover:text-primary transition cursor-pointer self-center ml-1 py-0 px-2 rounded-full bg-primary bg-opacity-5 border-2 border-gray-400'>Code</span>
+
+                                {/* <div className='flex ml-1 flex-wrap gap-1'>
                                     <Badge color="gray" >Art</Badge>
                                     <Badge color="gray" >Easy</Badge>
                                     <Badge color="gray" >Fast</Badge>
                                     <Badge color="gray" >Code</Badge>
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* <h2 className="text-md text-gray-500">{description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, culpa a? Obcaecati adipisci debitis eligendi quaerat vel, expedita ipsum vitae voluptas harum fugit ad itaque deserunt sint. Quidem, dicta fuga!</h2> */}
@@ -60,11 +61,11 @@ export function CardProject({ id, fid, displayName, title, description, price, a
 
                     <div className='w-[300pt] border-t-[1px] border-gray-400 self-center'></div>
 
-                    <div className='w-full p-3 flex flex-initial justify-between'>
-                        <Avatar img={pfpUrl} rounded size="lg" placeholderInitials={displayName.charAt(0) || ""} >
+                    <div className='w-full py-3 px-4 flex flex-initial justify-between'>
+                        <Avatar img={pfpUrl} rounded size="md" placeholderInitials={displayName.charAt(0) || ""} >
                             <div className="space-y-1 font-medium">
                                 <div className='flex align-middle justify-between'>
-                                    <h1 className='text-3xl text-primary mr-1'>{displayName}</h1>
+                                    <h1 className='text-2xl text-primary mr-1'>{displayName}</h1>
                                     <Rating size="md">
                                         <Rating.Star />
 
@@ -92,7 +93,7 @@ export function CardProject({ id, fid, displayName, title, description, price, a
                     </div>
 
                     {/* BUTTON V1 */}
-                    <Link className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold' href={`/explore-tasks/${id}`}>
+                    <Link className='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold transition' href={`/explore-tasks/${id}`}>
                         <h1 className='text-lg p-1 self-center text-center'>Learn More</h1>
                     </Link>
 
